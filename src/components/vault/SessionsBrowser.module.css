@@ -1,0 +1,190 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* ── Year block ── */
+.yearBlock {
+  border: 1px solid var(--vault-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.yearHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: var(--vault-surface);
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.12s;
+}
+.yearHeader:hover { background: rgba(255,255,255,0.03); }
+
+.yearTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--vault-accent);
+  flex: 1;
+}
+.yearMeta { font-size: 12px; color: var(--vault-muted); }
+.chevron  { font-size: 13px; color: var(--vault-muted); }
+
+/* ── Month block ── */
+.monthsContainer {
+  border-top: 1px solid var(--vault-border);
+  display: flex;
+  flex-direction: column;
+}
+
+.monthBlock {
+  border-bottom: 1px solid #1a1a1a;
+}
+.monthBlock:last-child { border-bottom: none; }
+
+.monthHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px 12px 28px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.12s;
+}
+.monthHeader:hover { background: rgba(255,255,255,0.02); }
+
+.monthDot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--vault-border);
+  flex-shrink: 0;
+}
+
+.monthTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--vault-muted);
+  flex: 1;
+  letter-spacing: 0.04em;
+}
+
+.monthCount {
+  font-size: 11px;
+  background: rgba(255,255,255,0.05);
+  color: var(--vault-muted);
+  border-radius: 10px;
+  padding: 1px 8px;
+}
+
+.chevronSm { font-size: 11px; color: #333; }
+
+/* ── Session list ── */
+.sessionList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 4px 12px 8px 36px;
+}
+
+.sessionCard {
+  position: relative;
+  display: block;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  transition: background 0.12s;
+}
+.sessionCard:hover { background: rgba(255,255,255,0.03); }
+
+/* Progress bar at very top of card */
+.progressBar {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: transparent;
+}
+.progressFill {
+  height: 100%;
+  background: var(--vault-accent);
+  opacity: 0.5;
+}
+
+.cardInner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 12px 10px;
+}
+
+.cardLeft {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+}
+
+.playDot {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+  transition: background 0.12s;
+}
+.sessionCard:hover .playDot { background: rgba(201,168,76,0.15); }
+
+.playIcon  { font-size: 10px; color: var(--vault-muted); margin-left: 2px; }
+.doneIcon  { font-size: 11px; color: #34d399; }
+
+.cardInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.cardTitle {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--vault-fg);
+  line-height: 1.4;
+}
+
+.cardDesc {
+  font-size: 12px;
+  color: var(--vault-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cardMeta {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.metaItem {
+  font-size: 11px;
+  color: #444;
+}
+
+.metaDone { color: #34d399 !important; }
+
+.cardDate {
+  font-size: 11px;
+  color: #333;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 4px;
+}

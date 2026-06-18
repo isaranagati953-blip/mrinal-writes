@@ -1,0 +1,29 @@
+.root {
+  min-height: 100vh;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.code {
+  font-size: 48px;
+  font-weight: 700;
+  color: #e5e7eb;
+  letter-spacing: -0.02em;
+}
+
+.msg {
+  font-size: 16px;
+  color: var(--muted);
+}
+
+.link {
+  font-size: 14px;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  margin-top: 8px;
+}

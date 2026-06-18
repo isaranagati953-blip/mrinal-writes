@@ -1,0 +1,27 @@
+# ── Secrets — NEVER commit these ──
+.env
+.env.local
+.env.production
+.env.*.local
+
+# ── Next.js ──
+.next/
+out/
+build/
+
+# ── Database (local dev only) ──
+*.db
+*.db-journal
+prisma/*.db
+
+# ── Node ──
+node_modules/
+npm-debug.log*
+
+# ── OS ──
+.DS_Store
+Thumbs.db
+
+# ── Uploads (never store audio locally in repo) ──
+uploads/
+tmp/

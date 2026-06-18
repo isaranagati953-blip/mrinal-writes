@@ -1,0 +1,118 @@
+.root {
+  min-height: 100vh;
+  background: var(--vault-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.card {
+  width: 100%;
+  max-width: 400px;
+  background: var(--vault-surface);
+  border: 1px solid var(--vault-border);
+  border-radius: 12px;
+  padding: 40px 32px;
+}
+
+.symbol {
+  font-size: 28px;
+  color: var(--vault-accent);
+  text-align: center;
+  margin-bottom: 16px;
+  letter-spacing: 4px;
+}
+
+.heading {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--vault-fg);
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.sub {
+  font-size: 14px;
+  color: var(--vault-muted);
+  text-align: center;
+  margin-bottom: 28px;
+  line-height: 1.5;
+}
+
+.loading, .invalidMsg {
+  text-align: center;
+  color: var(--vault-muted);
+  font-size: 14px;
+  padding: 12px 0;
+}
+
+.invalidMsg { color: #e05c5c; }
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 13px;
+  color: var(--vault-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.emailDisplay {
+  font-size: 14px;
+  color: var(--vault-muted);
+  background: #111;
+  border: 1px solid var(--vault-border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+}
+
+.input {
+  background: #111;
+  border: 1px solid var(--vault-border);
+  border-radius: var(--radius-sm);
+  color: var(--vault-fg);
+  padding: 12px 14px;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+}
+
+.input:focus { border-color: var(--vault-accent); }
+.input::placeholder { color: #3a3a3a; }
+
+.error {
+  font-size: 13px;
+  color: #e05c5c;
+  background: rgba(224, 92, 92, 0.08);
+  border: 1px solid rgba(224, 92, 92, 0.2);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+}
+
+.btn {
+  background: var(--vault-accent);
+  color: #0f0f0f;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 13px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  transition: background 0.15s, opacity 0.15s;
+  margin-top: 4px;
+}
+
+.btn:hover:not(:disabled) { background: #d4b050; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }

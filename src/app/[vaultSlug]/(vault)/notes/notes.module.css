@@ -1,0 +1,76 @@
+.root { padding: 32px 20px 60px; }
+
+@media (min-width: 768px) { .root { padding: 48px 40px 80px; } }
+
+.inner {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 36px;
+}
+
+.header { display: flex; flex-direction: column; gap: 4px; }
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--vault-fg);
+  letter-spacing: -0.01em;
+}
+
+.subtitle { font-size: 14px; color: var(--vault-muted); }
+
+.empty {
+  font-size: 14px;
+  color: var(--vault-muted);
+  padding: 40px 0;
+  text-align: center;
+}
+
+/* ── Groups ── */
+.group { display: flex; flex-direction: column; gap: 12px; }
+
+.groupHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--vault-border);
+}
+
+.groupDate { font-size: 12px; color: var(--vault-muted); }
+
+.groupTitle {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--vault-accent);
+  transition: opacity 0.12s;
+}
+.groupHeader:hover .groupTitle { opacity: 0.8; }
+
+.noteList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.noteCard {
+  background: var(--vault-surface);
+  border: 1px solid var(--vault-border);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.noteContent {
+  font-size: 14px;
+  color: var(--vault-fg);
+  line-height: 1.65;
+  white-space: pre-wrap;
+}
+
+.noteDate { font-size: 11px; color: var(--vault-muted); }

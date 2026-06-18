@@ -1,0 +1,134 @@
+.pageHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.empty {
+  color: var(--vault-muted);
+  font-size: 14px;
+  padding: 32px 0;
+  text-align: center;
+}
+
+/* ── Year / Month blocks ── */
+.yearBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.yearLabel {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--vault-accent);
+  padding-bottom: 8px;
+  border-bottom: 1px solid #1e1e1e;
+}
+
+.monthBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-left: 16px;
+  border-left: 2px solid #1e1e1e;
+}
+
+.monthLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--vault-muted);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  letter-spacing: 0.04em;
+}
+
+.monthCount {
+  font-size: 11px;
+  font-weight: 400;
+  color: #333;
+}
+
+/* ── Session rows ── */
+.tree {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #111;
+  border: 1px solid #1a1a1a;
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  transition: border-color 0.12s;
+}
+.row:hover { border-color: #2a2a2a; }
+
+.published { border-left: 2px solid var(--vault-accent) !important; }
+.draft     { border-left: 2px solid #2a2a2a !important; }
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.published .dot { background: var(--vault-accent); }
+.draft .dot     { background: #333; }
+
+.info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.sessionTitle {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--vault-fg);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.badges { display: flex; flex-wrap: wrap; gap: 5px; }
+
+.badge {
+  font-size: 11px;
+  padding: 1px 7px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.04);
+  color: var(--vault-muted);
+}
+.badgeGreen { background: rgba(52,211,153,0.1); color: #34d399; }
+.badgeYellow { background: rgba(251,191,36,0.1); color: #fbbf24; }
+
+/* ── Action buttons ── */
+.actions { display: flex; gap: 6px; flex-shrink: 0; }
+
+.btn {
+  font-size: 11px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: 1px solid #222;
+  background: transparent;
+  color: var(--vault-muted);
+  cursor: pointer;
+  font-family: var(--font);
+  transition: border-color 0.12s, color 0.12s;
+  white-space: nowrap;
+}
+
+.btnPublish:hover   { border-color: var(--vault-accent); color: var(--vault-accent); }
+.btnUnpublish:hover { border-color: #555; color: var(--vault-fg); }
+.btnEdit:hover      { border-color: #4a9eff; color: #4a9eff; }
+.btnDelete:hover    { border-color: #e05c5c; color: #e05c5c; }

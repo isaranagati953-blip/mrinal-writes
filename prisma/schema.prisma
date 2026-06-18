@@ -1,0 +1,120 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  name         String
+  passwordHash String
+  role         Role      @default(MEMBER)
+  isActive     Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  lastLoginAt  DateTime?
+
+  invite       Invite?   @relation(fields: [inviteId], references: [id])
+  inviteId     String?   @unique
+  sessions     Session[]
+  notes        Note[]
+  auditLogs    AuditLog[]
+  progress     Progress[]
+}
+
+enum Role {
+  ADMIN
+  MEMBER
+}
+
+model Invite {
+  id        String    @id @default(cuid())
+  token     String    @unique
+  email     String    @unique
+  name      String
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+  createdBy String
+  user      User?
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  ipAddress String?
+  userAgent String?
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model AudioSession {
+  id           String    @id @default(cuid())
+  title        String
+  description  String?
+  recordedAt   DateTime
+  durationSecs Int?
+  r2Key        String    @unique
+  fileSize     Int?
+  mimeType     String    @default("audio/mpeg")
+  tags         String?
+  isPublished  Boolean   @default(false)
+  sortOrder    Int       @default(0)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  transcription Transcription?
+  notes         Note[]
+  progress      Progress[]
+}
+
+model Transcription {
+  id             String       @id @default(cuid())
+  audioSessionId String       @unique
+  content        String
+  language       String       @default("en")
+  isVerified     Boolean      @default(false)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  audioSession   AudioSession @relation(fields: [audioSessionId], references: [id], onDelete: Cascade)
+}
+
+model Note {
+  id             String       @id @default(cuid())
+  userId         String
+  audioSessionId String
+  content        String
+  timestampSecs  Int?
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  audioSession   AudioSession @relation(fields: [audioSessionId], references: [id], onDelete: Cascade)
+}
+
+model Progress {
+  id             String       @id @default(cuid())
+  userId         String
+  audioSessionId String
+  positionSecs   Int          @default(0)
+  completedAt    DateTime?
+  updatedAt      DateTime     @updatedAt
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  audioSession   AudioSession @relation(fields: [audioSessionId], references: [id], onDelete: Cascade)
+  @@unique([userId, audioSessionId])
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  action    String
+  detail    String?
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+  user      User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+}

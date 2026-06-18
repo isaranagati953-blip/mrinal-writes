@@ -1,0 +1,197 @@
+.root { padding: 32px 20px 80px; }
+@media (min-width: 768px) { .root { padding: 48px 40px 80px; } }
+
+.inner {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--vault-fg);
+  letter-spacing: -0.01em;
+}
+
+/* ── Stat grid ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+@media (min-width: 600px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+
+.card {
+  background: #111;
+  border: 1px solid #1e1e1e;
+  border-radius: var(--radius);
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: border-color 0.12s;
+}
+.card:hover { border-color: var(--vault-accent); }
+
+.cardVal {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--vault-accent);
+  line-height: 1;
+}
+.cardLabel {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--vault-fg);
+}
+.cardSub { font-size: 12px; color: var(--vault-muted); }
+
+/* ── Sections ── */
+.section { display: flex; flex-direction: column; gap: 16px; }
+
+.sectionTitle {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--vault-muted);
+}
+
+/* ── Actions ── */
+.actions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+.actionBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #111;
+  border: 1px solid #1e1e1e;
+  color: var(--vault-fg);
+  border-radius: var(--radius-sm);
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 500;
+  transition: border-color 0.12s, color 0.12s;
+}
+.actionBtn:hover { border-color: var(--vault-accent); color: var(--vault-accent); }
+
+/* ── Audit list ── */
+.auditList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  background: #111;
+  border: 1px solid #1e1e1e;
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.auditRow {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 12px;
+  align-items: center;
+  padding: 11px 16px;
+  border-bottom: 1px solid #1a1a1a;
+  font-size: 13px;
+}
+.auditRow:last-child { border-bottom: none; }
+
+.auditAction { color: var(--vault-fg); }
+.auditWho { color: var(--vault-muted); }
+.auditTime { color: #444; font-size: 11px; white-space: nowrap; }
+
+/* ── Forms shared ── */
+.form { display: flex; flex-direction: column; gap: 20px; }
+
+.field { display: flex; flex-direction: column; gap: 6px; }
+
+.label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--vault-muted);
+}
+
+.input, .select, .textarea {
+  background: #111;
+  border: 1px solid #1e1e1e;
+  border-radius: var(--radius-sm);
+  color: var(--vault-fg);
+  padding: 10px 14px;
+  font-size: 14px;
+  outline: none;
+  font-family: var(--font);
+  transition: border-color 0.12s;
+  width: 100%;
+}
+.input:focus, .select:focus, .textarea:focus { border-color: var(--vault-accent); }
+.input::placeholder, .textarea::placeholder { color: #333; }
+.textarea { resize: vertical; min-height: 80px; }
+.select option { background: #111; }
+
+.hint { font-size: 12px; color: var(--vault-muted); }
+
+.submitBtn {
+  background: var(--vault-accent);
+  color: #000;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 700;
+  align-self: flex-start;
+  transition: background 0.12s, opacity 0.12s;
+}
+.submitBtn:hover:not(:disabled) { background: #d4b050; }
+.submitBtn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.error {
+  font-size: 13px;
+  color: #e05c5c;
+  background: rgba(224,92,92,0.08);
+  border: 1px solid rgba(224,92,92,0.2);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+}
+
+.success {
+  font-size: 13px;
+  color: #34d399;
+  background: rgba(52,211,153,0.08);
+  border: 1px solid rgba(52,211,153,0.2);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #111;
+  border: 1px solid #1e1e1e;
+  border-radius: var(--radius);
+  overflow: hidden;
+  font-size: 13px;
+}
+.table th {
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--vault-muted);
+  border-bottom: 1px solid #1e1e1e;
+}
+.table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #141414;
+  color: var(--vault-fg);
+  vertical-align: middle;
+}
+.table tr:last-child td { border-bottom: none; }
+.table tr:hover td { background: rgba(255,255,255,0.015); }

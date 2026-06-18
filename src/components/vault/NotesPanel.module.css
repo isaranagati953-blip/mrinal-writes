@@ -1,0 +1,146 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.title {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--vault-muted);
+}
+
+/* ── Add area ── */
+.addArea {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--vault-surface);
+  border: 1px solid var(--vault-border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.textarea {
+  background: transparent;
+  border: none;
+  color: var(--vault-fg);
+  font-size: 14px;
+  line-height: 1.6;
+  resize: vertical;
+  outline: none;
+  width: 100%;
+  font-family: var(--font);
+  min-height: 72px;
+}
+
+.textarea::placeholder { color: #3a3a3a; }
+
+.addFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hint { font-size: 12px; color: var(--vault-muted); }
+
+.saveBtn {
+  background: var(--vault-accent);
+  color: #0f0f0f;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.12s, opacity 0.12s;
+}
+.saveBtn:hover:not(:disabled) { background: #d4b050; }
+.saveBtn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.error {
+  font-size: 12px;
+  color: #e05c5c;
+  padding: 6px 10px;
+  background: rgba(224,92,92,0.08);
+  border-radius: var(--radius-sm);
+}
+
+/* ── Notes list ── */
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.noteCard {
+  background: var(--vault-surface);
+  border: 1px solid var(--vault-border);
+  border-radius: var(--radius);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.noteContent {
+  font-size: 14px;
+  color: var(--vault-fg);
+  line-height: 1.65;
+  white-space: pre-wrap;
+}
+
+.noteMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.noteDate { font-size: 12px; color: var(--vault-muted); }
+
+.noteActions { display: flex; gap: 8px; }
+
+.actionBtn {
+  font-size: 12px;
+  color: var(--vault-muted);
+  background: transparent;
+  border: none;
+  padding: 2px 4px;
+  transition: color 0.12s;
+}
+.actionBtn:hover { color: var(--vault-fg); }
+.deleteBtn:hover { color: #e05c5c !important; }
+
+/* Edit area */
+.editArea {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.editActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.cancelBtn {
+  background: transparent;
+  border: 1px solid var(--vault-border);
+  color: var(--vault-muted);
+  border-radius: var(--radius-sm);
+  padding: 6px 12px;
+  font-size: 13px;
+  transition: border-color 0.12s;
+}
+.cancelBtn:hover { border-color: var(--vault-fg); }
+
+.empty {
+  font-size: 14px;
+  color: var(--vault-muted);
+  text-align: center;
+  padding: 24px 0;
+}
