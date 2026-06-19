@@ -21,7 +21,7 @@ const nextConfig = {
               "style-src 'self' 'unsafe-inline'",
               "media-src 'self' blob: https://*.r2.cloudflarestorage.com",
               "img-src 'self' data:",
-              "connect-src 'self'",
+              "connect-src 'self' https://*.r2.cloudflarestorage.com",
               "frame-ancestors 'none'",
             ].join("; "),
           },
