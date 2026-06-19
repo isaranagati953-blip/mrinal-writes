@@ -1,29 +1,50 @@
 .root {
   min-height: 100vh;
   background: var(--bg);
+  color: var(--fg);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  padding: 24px;
+  gap: 16px;
+  text-align: center;
+  animation: fadeUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 .code {
-  font-size: 48px;
+  font-size: 80px;
   font-weight: 700;
-  color: #e5e7eb;
-  letter-spacing: -0.02em;
+  color: var(--accent);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  opacity: 0.9;
 }
 
 .msg {
-  font-size: 16px;
+  font-size: 18px;
   color: var(--muted);
+  font-weight: 400;
+  max-width: 320px;
+  line-height: 1.6;
+  margin-bottom: 8px;
 }
 
 .link {
   font-size: 14px;
-  color: var(--muted);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  margin-top: 8px;
+  font-weight: 500;
+  color: var(--bg-card);
+  background: var(--fg);
+  padding: 10px 20px;
+  border-radius: var(--radius-sm);
+  transition: opacity var(--transition), transform 0.1s ease;
+}
+
+.link:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.link:active {
+  transform: translateY(0);
 }

@@ -1,7 +1,7 @@
 .root {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 /* ── Year block ── */
@@ -16,23 +16,26 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 16px 20px;
+  padding: 18px 22px;
   background: var(--vault-surface);
   border: none;
   cursor: pointer;
   text-align: left;
-  transition: background 0.12s;
+  transition: background var(--transition);
 }
+
 .yearHeader:hover { background: rgba(255,255,255,0.03); }
 
 .yearTitle {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   color: var(--vault-accent);
   flex: 1;
+  letter-spacing: -0.02em;
 }
-.yearMeta { font-size: 12px; color: var(--vault-muted); }
-.chevron  { font-size: 13px; color: var(--vault-muted); }
+
+.yearMeta { font-size: 12px; color: var(--vault-muted); font-weight: 500; }
+.chevron  { font-size: 12px; color: var(--vault-muted); transition: transform var(--transition); }
 
 /* ── Month block ── */
 .monthsContainer {
@@ -42,8 +45,9 @@
 }
 
 .monthBlock {
-  border-bottom: 1px solid #1a1a1a;
+  border-bottom: 1px solid rgba(37,37,37,0.7);
 }
+
 .monthBlock:last-child { border-bottom: none; }
 
 .monthHeader {
@@ -51,14 +55,15 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 12px 20px 12px 28px;
+  padding: 13px 22px 13px 30px;
   background: transparent;
   border: none;
   cursor: pointer;
   text-align: left;
-  transition: background 0.12s;
+  transition: background var(--transition);
 }
-.monthHeader:hover { background: rgba(255,255,255,0.02); }
+
+.monthHeader:hover { background: rgba(255,255,255,0.025); }
 
 .monthDot {
   width: 6px; height: 6px;
@@ -68,29 +73,30 @@
 }
 
 .monthTitle {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
   color: var(--vault-muted);
   flex: 1;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .monthCount {
   font-size: 11px;
-  background: rgba(255,255,255,0.05);
+  font-weight: 500;
+  background: rgba(255,255,255,0.04);
   color: var(--vault-muted);
-  border-radius: 10px;
-  padding: 1px 8px;
+  border-radius: 100px;
+  padding: 2px 9px;
 }
 
-.chevronSm { font-size: 11px; color: #333; }
+.chevronSm { font-size: 11px; color: #333; transition: transform var(--transition); }
 
 /* ── Session list ── */
 .sessionList {
   display: flex;
   flex-direction: column;
-  gap: 0;
-  padding: 4px 12px 8px 36px;
+  padding: 6px 14px 10px 38px;
 }
 
 .sessionCard {
@@ -98,9 +104,13 @@
   display: block;
   border-radius: var(--radius-sm);
   overflow: hidden;
-  transition: background 0.12s;
+  transition: background var(--transition), transform 0.2s ease;
 }
-.sessionCard:hover { background: rgba(255,255,255,0.03); }
+
+.sessionCard:hover {
+  background: rgba(255,255,255,0.03);
+  transform: translateX(3px);
+}
 
 /* Progress bar at very top of card */
 .progressBar {
@@ -109,29 +119,30 @@
   height: 2px;
   background: transparent;
 }
+
 .progressFill {
   height: 100%;
-  background: var(--vault-accent);
-  opacity: 0.5;
+  background: linear-gradient(90deg, var(--vault-accent-dim), var(--vault-accent));
+  opacity: 0.6;
 }
 
 .cardInner {
   display: flex;
   align-items: flex-start;
-  gap: 12px;
-  padding: 12px 10px;
+  gap: 14px;
+  padding: 13px 12px;
 }
 
 .cardLeft {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
+  gap: 12px;
   flex: 1;
   min-width: 0;
 }
 
 .playDot {
-  width: 28px; height: 28px;
+  width: 30px; height: 30px;
   border-radius: 50%;
   background: rgba(255,255,255,0.04);
   display: flex;
@@ -139,17 +150,18 @@
   justify-content: center;
   flex-shrink: 0;
   margin-top: 1px;
-  transition: background 0.12s;
+  transition: background var(--transition);
 }
-.sessionCard:hover .playDot { background: rgba(201,168,76,0.15); }
+
+.sessionCard:hover .playDot { background: var(--vault-accent-bg); }
 
 .playIcon  { font-size: 10px; color: var(--vault-muted); margin-left: 2px; }
-.doneIcon  { font-size: 11px; color: #34d399; }
+.doneIcon  { font-size: 11px; color: #6ee7b7; }
 
 .cardInfo {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 4px;
   min-width: 0;
 }
 
@@ -172,14 +184,16 @@
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+  margin-top: 1px;
 }
 
 .metaItem {
   font-size: 11px;
-  color: #444;
+  color: #404040;
+  font-weight: 500;
 }
 
-.metaDone { color: #34d399 !important; }
+.metaDone { color: #6ee7b7 !important; }
 
 .cardDate {
   font-size: 11px;
@@ -187,4 +201,5 @@
   white-space: nowrap;
   flex-shrink: 0;
   margin-top: 4px;
+  font-weight: 500;
 }

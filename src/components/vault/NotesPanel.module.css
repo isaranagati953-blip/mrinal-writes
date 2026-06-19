@@ -5,22 +5,28 @@
 }
 
 .title {
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--vault-muted);
+  opacity: 0.7;
 }
 
 /* ── Add area ── */
 .addArea {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
   background: var(--vault-surface);
   border: 1px solid var(--vault-border);
   border-radius: var(--radius);
-  padding: 16px;
+  padding: 18px;
+  transition: border-color var(--transition);
+}
+
+.addArea:focus-within {
+  border-color: rgba(212,168,75,0.3);
 }
 
 .textarea {
@@ -28,15 +34,15 @@
   border: none;
   color: var(--vault-fg);
   font-size: 14px;
-  line-height: 1.6;
+  line-height: 1.7;
   resize: vertical;
   outline: none;
   width: 100%;
   font-family: var(--font);
-  min-height: 72px;
+  min-height: 78px;
 }
 
-.textarea::placeholder { color: #3a3a3a; }
+.textarea::placeholder { color: #303030; }
 
 .addFooter {
   display: flex;
@@ -48,22 +54,28 @@
 
 .saveBtn {
   background: var(--vault-accent);
-  color: #0f0f0f;
+  color: #0d0d0d;
   border: none;
   border-radius: var(--radius-sm);
-  padding: 8px 16px;
+  padding: 9px 18px;
   font-size: 13px;
   font-weight: 600;
-  transition: background 0.12s, opacity 0.12s;
+  transition: background var(--transition), transform 0.1s ease;
 }
-.saveBtn:hover:not(:disabled) { background: #d4b050; }
+
+.saveBtn:hover:not(:disabled) {
+  background: #e0b050;
+  transform: translateY(-1px);
+}
+
 .saveBtn:disabled { opacity: 0.4; cursor: not-allowed; }
 
 .error {
   font-size: 12px;
-  color: #e05c5c;
-  padding: 6px 10px;
-  background: rgba(224,92,92,0.08);
+  color: #f87171;
+  padding: 8px 12px;
+  background: rgba(248,113,113,0.07);
+  border: 1px solid rgba(248,113,113,0.2);
   border-radius: var(--radius-sm);
 }
 
@@ -79,16 +91,19 @@
   background: var(--vault-surface);
   border: 1px solid var(--vault-border);
   border-radius: var(--radius);
-  padding: 16px;
+  padding: 18px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
+  transition: border-color var(--transition);
 }
+
+.noteCard:hover { border-color: rgba(212,168,75,0.2); }
 
 .noteContent {
   font-size: 14px;
   color: var(--vault-fg);
-  line-height: 1.65;
+  line-height: 1.75;
   white-space: pre-wrap;
 }
 
@@ -99,7 +114,7 @@
   gap: 8px;
 }
 
-.noteDate { font-size: 12px; color: var(--vault-muted); }
+.noteDate { font-size: 12px; color: var(--vault-muted); font-weight: 500; }
 
 .noteActions { display: flex; gap: 8px; }
 
@@ -108,11 +123,12 @@
   color: var(--vault-muted);
   background: transparent;
   border: none;
-  padding: 2px 4px;
-  transition: color 0.12s;
+  padding: 3px 6px;
+  transition: color var(--transition);
 }
+
 .actionBtn:hover { color: var(--vault-fg); }
-.deleteBtn:hover { color: #e05c5c !important; }
+.deleteBtn:hover { color: #f87171 !important; }
 
 /* Edit area */
 .editArea {
@@ -132,15 +148,16 @@
   border: 1px solid var(--vault-border);
   color: var(--vault-muted);
   border-radius: var(--radius-sm);
-  padding: 6px 12px;
+  padding: 7px 14px;
   font-size: 13px;
-  transition: border-color 0.12s;
+  transition: border-color var(--transition), color var(--transition);
 }
-.cancelBtn:hover { border-color: var(--vault-fg); }
+
+.cancelBtn:hover { border-color: var(--vault-fg); color: var(--vault-fg); }
 
 .empty {
   font-size: 14px;
   color: var(--vault-muted);
   text-align: center;
-  padding: 24px 0;
+  padding: 32px 0;
 }

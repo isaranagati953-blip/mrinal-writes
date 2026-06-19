@@ -1,76 +1,121 @@
-.root { padding: 32px 20px 60px; }
+.root {
+  padding: 40px 24px 96px;
+}
 
-@media (min-width: 768px) { .root { padding: 48px 40px 80px; } }
+@media (min-width: 768px) {
+  .root {
+    padding: 56px 48px 96px;
+  }
+}
 
 .inner {
-  max-width: 720px;
+  max-width: 740px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 36px;
+  gap: 40px;
+  animation: fadeUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
-.header { display: flex; flex-direction: column; gap: 4px; }
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
 
 .title {
-  font-size: 24px;
+  font-size: 28px;
   font-weight: 600;
   color: var(--vault-fg);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
-.subtitle { font-size: 14px; color: var(--vault-muted); }
+.subtitle {
+  font-size: 14px;
+  color: var(--vault-muted);
+}
 
 .empty {
   font-size: 14px;
   color: var(--vault-muted);
-  padding: 40px 0;
+  padding: 64px 0;
   text-align: center;
+  border: 1px dashed var(--vault-border);
+  border-radius: var(--radius-lg);
+  background: var(--vault-surface);
 }
 
 /* ── Groups ── */
-.group { display: flex; flex-direction: column; gap: 12px; }
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
 
 .groupHeader {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  padding-bottom: 8px;
+  gap: 4px;
+  padding-bottom: 12px;
   border-bottom: 1px solid var(--vault-border);
+  text-decoration: none;
 }
 
-.groupDate { font-size: 12px; color: var(--vault-muted); }
+.groupDate {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--vault-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
 
 .groupTitle {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 500;
   color: var(--vault-accent);
-  transition: opacity 0.12s;
+  transition: color var(--transition), transform var(--transition);
+  display: inline-flex;
+  align-items: center;
 }
-.groupHeader:hover .groupTitle { opacity: 0.8; }
+
+.groupHeader:hover .groupTitle {
+  color: #e0b050;
+  transform: translateX(4px);
+}
 
 .noteList {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
 }
 
 .noteCard {
   background: var(--vault-surface);
   border: 1px solid var(--vault-border);
   border-radius: var(--radius);
-  padding: 14px 16px;
+  padding: 20px 24px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
+  transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition);
+}
+
+.noteCard:hover {
+  border-color: rgba(212, 168, 75, 0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
 .noteContent {
   font-size: 14px;
   color: var(--vault-fg);
-  line-height: 1.65;
+  line-height: 1.7;
   white-space: pre-wrap;
 }
 
-.noteDate { font-size: 11px; color: var(--vault-muted); }
+.noteDate {
+  font-size: 11px;
+  color: var(--vault-muted);
+  align-self: flex-start;
+}

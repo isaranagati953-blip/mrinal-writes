@@ -1,21 +1,26 @@
 .root {
-  padding: 32px 20px 80px;
+  padding: 40px 24px 96px;
 }
 
 @media (min-width: 768px) {
-  .root { padding: 48px 40px 80px; }
+  .root { padding: 56px 48px 96px; }
 }
 
 .inner {
-  max-width: 720px;
+  max-width: 740px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 40px;
+  animation: fadeUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 /* ── Header ── */
-.header { display: flex; flex-direction: column; gap: 10px; }
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
 
 .meta {
   display: flex;
@@ -24,73 +29,77 @@
   flex-wrap: wrap;
 }
 
-.date { font-size: 13px; color: var(--vault-muted); }
+.date {
+  font-size: 13px;
+  color: var(--vault-muted);
+  font-weight: 500;
+}
 
 .tags { display: flex; gap: 6px; flex-wrap: wrap; }
 
 .tag {
   font-size: 11px;
-  background: rgba(201,168,76,0.1);
+  font-weight: 500;
+  background: var(--vault-accent-bg);
   color: var(--vault-accent);
-  border-radius: 4px;
-  padding: 2px 8px;
+  border: 1px solid rgba(212,168,75,0.2);
+  border-radius: 100px;
+  padding: 3px 10px;
 }
 
 .title {
-  font-size: 22px;
-  font-weight: 600;
+  font-size: 24px;
+  font-weight: 700;
   color: var(--vault-fg);
   line-height: 1.3;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
-@media (min-width: 768px) { .title { font-size: 26px; } }
+@media (min-width: 768px) { .title { font-size: 28px; } }
 
 .desc {
   font-size: 15px;
   color: var(--vault-muted);
-  line-height: 1.6;
+  line-height: 1.7;
 }
 
 /* ── Panels ── */
 .panels {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 36px;
 }
 
-.transcriptSection { display: flex; flex-direction: column; gap: 16px; }
+.transcriptSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
 
 .panelTitle {
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--vault-muted);
+  opacity: 0.7;
 }
 
 .transcriptBody {
   background: var(--vault-surface);
   border: 1px solid var(--vault-border);
   border-radius: var(--radius);
-  padding: 24px;
+  padding: 28px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  max-height: 480px;
+  gap: 18px;
+  max-height: 520px;
   overflow-y: auto;
 }
 
-.transcriptBody::-webkit-scrollbar { width: 4px; }
-.transcriptBody::-webkit-scrollbar-track { background: transparent; }
-.transcriptBody::-webkit-scrollbar-thumb {
-  background: var(--vault-border);
-  border-radius: 2px;
-}
-
 .transPara {
-  font-size: 14px;
+  font-size: 15px;
   color: var(--vault-fg);
-  line-height: 1.75;
-  opacity: 0.9;
+  line-height: 1.85;
+  opacity: 0.88;
 }

@@ -49,7 +49,7 @@ export default async function DashboardPage({
         {/* Greeting */}
         <header className={styles.header}>
           <h1 className={styles.greeting}>
-            Jai Shri Krishna, {user.name.split(" ")[0]} 🙏
+            Hare Krishna, {user.name.split(" ")[0]} 🙏
           </h1>
           <p className={styles.date}>
             {new Date().toLocaleDateString("en-IN", {

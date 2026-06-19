@@ -5,10 +5,10 @@
   color: var(--vault-fg);
 }
 
-/* ── Sidebar ─────────────────────────────────── */
+/* ─── Sidebar ─────────────────────────────────── */
 .sidebar {
-  display: none; /* hidden on mobile */
-  width: 220px;
+  display: none;
+  width: 230px;
   flex-shrink: 0;
   background: var(--vault-surface);
   border-right: 1px solid var(--vault-border);
@@ -17,42 +17,43 @@
   position: fixed;
   top: 0; left: 0; bottom: 0;
   z-index: 10;
-  padding: 28px 0 20px;
+  padding: 32px 0 24px;
 }
 
 @media (min-width: 768px) {
-  .sidebar { display: flex; }
-  .main { margin-left: 220px; }
+  .sidebar  { display: flex; }
+  .main     { margin-left: 230px; }
   .mobileBar { display: none; }
 }
 
 .sidebarTop {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 36px;
 }
 
 .logoMark {
-  font-size: 22px;
+  font-size: 20px;
   color: var(--vault-accent);
-  letter-spacing: 4px;
+  letter-spacing: 6px;
   text-align: center;
   padding: 0 20px;
+  opacity: 0.85;
 }
 
-/* ── Nav items ── */
+/* ─── Nav items ──────────────────────────────── */
 .nav {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  padding: 0 12px;
+  padding: 0 14px;
 }
 
 .navItem {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
+  gap: 11px;
+  padding: 11px 14px;
   border-radius: var(--radius-sm);
   border: none;
   background: transparent;
@@ -61,7 +62,8 @@
   font-weight: 500;
   text-align: left;
   width: 100%;
-  transition: background 0.12s, color 0.12s;
+  transition: background var(--transition), color var(--transition);
+  cursor: pointer;
 }
 
 .navItem:hover {
@@ -70,7 +72,7 @@
 }
 
 .navActive {
-  background: rgba(201, 168, 76, 0.1) !important;
+  background: var(--vault-accent-bg) !important;
   color: var(--vault-accent) !important;
 }
 
@@ -79,31 +81,32 @@
   width: 18px;
   text-align: center;
   flex-shrink: 0;
+  opacity: 0.8;
 }
 
-/* ── Sidebar bottom ── */
+/* ─── Sidebar bottom ─────────────────────────── */
 .sidebarBottom {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 0 12px;
+  padding: 0 14px;
 }
 
 .userInfo {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
+  gap: 11px;
+  padding: 11px 14px;
   border-radius: var(--radius-sm);
-  background: rgba(255,255,255,0.02);
+  background: rgba(255,255,255,0.025);
 }
 
 .userAvatar {
-  width: 30px;
-  height: 30px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  background: var(--vault-accent);
-  color: #0f0f0f;
+  background: linear-gradient(135deg, var(--vault-accent), var(--vault-accent-dim));
+  color: #0d0d0d;
   font-size: 13px;
   font-weight: 700;
   display: flex;
@@ -115,7 +118,7 @@
 .userMeta {
   display: flex;
   flex-direction: column;
-  gap: 1px;
+  gap: 2px;
   min-width: 0;
 }
 
@@ -141,22 +144,22 @@
   border: 1px solid var(--vault-border);
   color: var(--vault-muted);
   border-radius: var(--radius-sm);
-  padding: 8px;
+  padding: 9px;
   font-size: 13px;
   width: 100%;
-  transition: border-color 0.12s, color 0.12s;
+  transition: border-color var(--transition), color var(--transition);
 }
 
 .logoutBtn:hover {
-  border-color: #e05c5c;
-  color: #e05c5c;
+  border-color: #f87171;
+  color: #f87171;
 }
 
-/* ── Mobile top bar ── */
+/* ─── Mobile top bar ─────────────────────────── */
 .mobileBar {
   position: fixed;
   top: 0; left: 0; right: 0;
-  height: 52px;
+  height: 54px;
   background: var(--vault-surface);
   border-bottom: 1px solid var(--vault-border);
   display: flex;
@@ -172,29 +175,33 @@
   color: var(--vault-fg);
   font-size: 18px;
   padding: 4px 8px;
+  transition: opacity 0.15s;
 }
 
-/* ── Mobile drawer ── */
+.menuToggle:hover { opacity: 0.7; }
+
+/* ─── Mobile drawer ──────────────────────────── */
 .mobileDrawer {
   position: fixed;
-  top: 52px; left: 0; right: 0; bottom: 0;
+  top: 54px; left: 0; right: 0; bottom: 0;
   background: var(--vault-surface);
   z-index: 15;
   overflow-y: auto;
+  animation: fadeIn 0.2s ease both;
 }
 
 .mobileNav {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  padding: 16px 12px;
+  padding: 20px 14px;
 }
 
 .mobileNavItem {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 14px 16px;
+  gap: 14px;
+  padding: 15px 18px;
   border-radius: var(--radius-sm);
   border: none;
   background: transparent;
@@ -203,6 +210,7 @@
   font-weight: 500;
   text-align: left;
   width: 100%;
+  transition: background var(--transition), color var(--transition);
 }
 
 .mobileNavItem:hover, .mobileNavItem:active {
@@ -213,28 +221,26 @@
 .mobileDivider {
   height: 1px;
   background: var(--vault-border);
-  margin: 8px 0;
+  margin: 10px 0;
 }
 
 .mobileLogout {
   background: transparent;
   border: none;
-  color: #e05c5c;
+  color: #f87171;
   font-size: 15px;
-  padding: 14px 16px;
+  padding: 15px 18px;
   text-align: left;
   width: 100%;
 }
 
-/* ── Main content area ── */
+/* ─── Main content ───────────────────────────── */
 .main {
   flex: 1;
   min-height: 100vh;
-  padding-top: 52px; /* mobile bar height */
+  padding-top: 54px;
 }
 
 @media (min-width: 768px) {
-  .main {
-    padding-top: 0;
-  }
+  .main { padding-top: 0; }
 }

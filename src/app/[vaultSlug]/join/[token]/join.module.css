@@ -5,114 +5,155 @@
   align-items: center;
   justify-content: center;
   padding: 24px;
+  position: relative;
+}
+
+/* subtle radial glow behind the card */
+.root::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 50% 40%, rgba(212,168,75,0.05) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 .card {
   width: 100%;
-  max-width: 400px;
+  max-width: 420px;
   background: var(--vault-surface);
   border: 1px solid var(--vault-border);
-  border-radius: 12px;
-  padding: 40px 32px;
+  border-radius: var(--radius-lg);
+  padding: 48px 40px;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.4);
+  animation: fadeUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 .symbol {
-  font-size: 28px;
+  font-size: 26px;
   color: var(--vault-accent);
   text-align: center;
-  margin-bottom: 16px;
-  letter-spacing: 4px;
+  margin-bottom: 20px;
+  letter-spacing: 6px;
+  opacity: 0.8;
 }
 
 .heading {
-  font-size: 20px;
-  font-weight: 500;
+  font-size: 22px;
+  font-weight: 600;
   color: var(--vault-fg);
   text-align: center;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
+  letter-spacing: -0.01em;
 }
 
 .sub {
   font-size: 14px;
   color: var(--vault-muted);
   text-align: center;
-  margin-bottom: 28px;
-  line-height: 1.5;
+  margin-bottom: 32px;
+  line-height: 1.6;
 }
 
 .loading, .invalidMsg {
   text-align: center;
   color: var(--vault-muted);
   font-size: 14px;
-  padding: 12px 0;
+  padding: 16px 0;
 }
 
-.invalidMsg { color: #e05c5c; }
+.invalidMsg {
+  color: #f87171;
+  background: rgba(248,113,113,0.07);
+  border: 1px solid rgba(248,113,113,0.2);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+}
 
 .form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 22px;
 }
 
 .field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .label {
-  font-size: 13px;
+  font-size: 11px;
+  font-weight: 600;
   color: var(--vault-muted);
-  letter-spacing: 0.04em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
 .emailDisplay {
   font-size: 14px;
   color: var(--vault-muted);
-  background: #111;
+  background: var(--vault-bg);
   border: 1px solid var(--vault-border);
   border-radius: var(--radius-sm);
-  padding: 12px 14px;
+  padding: 13px 16px;
+  opacity: 0.8;
 }
 
 .input {
-  background: #111;
+  background: var(--vault-bg);
   border: 1px solid var(--vault-border);
   border-radius: var(--radius-sm);
   color: var(--vault-fg);
-  padding: 12px 14px;
+  padding: 13px 16px;
   font-size: 15px;
   outline: none;
-  transition: border-color 0.15s;
+  transition: border-color var(--transition), box-shadow var(--transition);
   width: 100%;
 }
 
-.input:focus { border-color: var(--vault-accent); }
-.input::placeholder { color: #3a3a3a; }
+.input:focus {
+  border-color: var(--vault-accent);
+  box-shadow: 0 0 0 3px rgba(212, 168, 75, 0.12);
+}
+
+.input::placeholder {
+  color: #2e2e2e;
+}
 
 .error {
   font-size: 13px;
-  color: #e05c5c;
-  background: rgba(224, 92, 92, 0.08);
-  border: 1px solid rgba(224, 92, 92, 0.2);
+  color: #f87171;
+  background: rgba(248,113,113,0.07);
+  border: 1px solid rgba(248,113,113,0.2);
   border-radius: var(--radius-sm);
-  padding: 10px 12px;
+  padding: 12px 14px;
+  line-height: 1.5;
 }
 
 .btn {
   background: var(--vault-accent);
-  color: #0f0f0f;
+  color: #0d0d0d;
   border: none;
   border-radius: var(--radius-sm);
-  padding: 13px;
+  padding: 14px;
   font-size: 15px;
   font-weight: 600;
-  letter-spacing: 0.03em;
-  transition: background 0.15s, opacity 0.15s;
-  margin-top: 4px;
+  letter-spacing: 0.02em;
+  transition: background var(--transition), transform 0.1s ease, box-shadow var(--transition);
+  margin-top: 6px;
 }
 
-.btn:hover:not(:disabled) { background: #d4b050; }
-.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn:hover:not(:disabled) {
+  background: #e0b050;
+  box-shadow: 0 4px 20px rgba(212, 168, 75, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
