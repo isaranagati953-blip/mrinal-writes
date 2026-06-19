@@ -4,17 +4,20 @@ import { redirect } from "next/navigation";
 import SessionsBrowser from "@/components/vault/SessionsBrowser";
 import styles from "./sessions.module.css";
 
+export const dynamic = "force-dynamic";
+
 export default async function SessionsPage({
   params,
   searchParams,
 }: {
-  params: { vaultSlug: string };
-  searchParams: { q?: string; tag?: string };
+  params: Promise<{ vaultSlug: string }>;
+  searchParams: Promise<{ q?: string; tag?: string }>;
 }) {
+  const [{ vaultSlug }, filters] = await Promise.all([params, searchParams]);
   const user = await getCurrentUser();
-  if (!user) redirect(`/${params.vaultSlug}/enter`);
+  if (!user) redirect(`/${vaultSlug}/enter`);
 
-  const { q, tag } = searchParams;
+  const { q, tag } = filters;
 
   const sessions = await db.audioSession.findMany({
     where: {
@@ -41,7 +44,7 @@ export default async function SessionsPage({
     )
   );
 
-  const slug = params.vaultSlug;
+  const slug = vaultSlug;
 
   return (
     <div className={styles.root}>

@@ -6,16 +6,19 @@ import AudioPlayer from "@/components/vault/AudioPlayer";
 import NotesPanel from "@/components/vault/NotesPanel";
 import styles from "./session.module.css";
 
+export const dynamic = "force-dynamic";
+
 export default async function SessionPage({
   params,
 }: {
-  params: { vaultSlug: string; sessionId: string };
+  params: Promise<{ vaultSlug: string; sessionId: string }>;
 }) {
+  const { vaultSlug, sessionId } = await params;
   const user = await getCurrentUser();
-  if (!user) redirect(`/${params.vaultSlug}/enter`);
+  if (!user) redirect(`/${vaultSlug}/enter`);
 
   const session = await db.audioSession.findUnique({
-    where: { id: params.sessionId, isPublished: true },
+    where: { id: sessionId, isPublished: true },
     include: {
       transcription: true,
       notes: {

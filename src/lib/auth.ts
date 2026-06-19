@@ -44,27 +44,30 @@ export async function verifyToken(
 }
 
 // ── Session cookie ───────────────────────────────────────
-export function setSessionCookie(token: string) {
-  cookies().set(COOKIE_NAME, token, {
+export async function setSessionCookie(token: string) {
+  const cookieStore = await cookies();
+  cookieStore.set(COOKIE_NAME, token, {
     httpOnly: true,       // JS cannot read this cookie
-    secure: true,         // HTTPS only
+    secure: process.env.NODE_ENV !== "development", // HTTPS only in production
     sameSite: "strict",   // no cross-site leakage
     maxAge: 60 * 60 * 24 * 7, // 7 days in seconds
     path: "/",
   });
 }
 
-export function clearSessionCookie() {
-  cookies().delete(COOKIE_NAME);
+export async function clearSessionCookie() {
+  const cookieStore = await cookies();
+  cookieStore.delete(COOKIE_NAME);
 }
 
-export function getSessionCookie(): string | undefined {
-  return cookies().get(COOKIE_NAME)?.value;
+export async function getSessionCookie(): Promise<string | undefined> {
+  const cookieStore = await cookies();
+  return cookieStore.get(COOKIE_NAME)?.value;
 }
 
 // ── Get current user from request ───────────────────────
 export async function getCurrentUser() {
-  const token = getSessionCookie();
+  const token = await getSessionCookie();
   if (!token) return null;
 
   const payload = await verifyToken(token);

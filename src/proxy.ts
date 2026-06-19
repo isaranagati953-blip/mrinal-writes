@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { jwtVerify } from "jose";
 
-const JWT_SECRET  = new TextEncoder().encode(process.env.JWT_SECRET!);
+const JWT_SECRET = new TextEncoder().encode(process.env.JWT_SECRET!);
 const COOKIE_NAME = "sp_session";
-const VAULT_SLUG  = process.env.VAULT_SLUG!;
+const VAULT_SLUG = process.env.VAULT_SLUG!;
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   // Routes requiring authentication
@@ -14,8 +14,8 @@ export async function middleware(req: NextRequest) {
     pathname.startsWith(`/${VAULT_SLUG}/sessions`) ||
     pathname.startsWith(`/${VAULT_SLUG}/notes`);
 
-  const isAdminRoute  = pathname.startsWith("/admin");
-  const isApiAdmin    = pathname.startsWith("/api/admin");
+  const isAdminRoute = pathname.startsWith("/admin");
+  const isApiAdmin = pathname.startsWith("/api/admin");
 
   if (!isVaultRoute && !isAdminRoute && !isApiAdmin) {
     return NextResponse.next();
@@ -39,8 +39,8 @@ export async function middleware(req: NextRequest) {
     }
 
     const headers = new Headers(req.headers);
-    headers.set("x-user-id",    payload.userId   as string);
-    headers.set("x-user-role",  payload.role     as string);
+    headers.set("x-user-id", payload.userId as string);
+    headers.set("x-user-role", payload.role as string);
     headers.set("x-session-id", payload.sessionId as string);
 
     return NextResponse.next({ request: { headers } });

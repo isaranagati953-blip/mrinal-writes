@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
 
     await audit("SIGNUP_COMPLETE", { userId: user.id, ip, userAgent: ua });
 
-    setSessionCookie(jwtToken);
+    await setSessionCookie(jwtToken);
 
     return NextResponse.json({ ok: true, data: { role: user.role } });
   } catch (err) {

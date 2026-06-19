@@ -1,5 +1,6 @@
 "use client";
 import { useState, useRef } from "react";
+import Link from "next/link";
 import styles from "../admin.module.css";
 
 type Stage = "form" | "uploading" | "done" | "error";
@@ -92,9 +93,9 @@ export default function UploadPage() {
             Session saved. Go to Sessions to add a transcript and publish it.
           </p>
           <div style={{ display: "flex", gap: 10, marginTop: 8 }}>
-            <a href="/admin/sessions" className={styles.submitBtn} style={{ textDecoration: "none", display: "inline-block" }}>
+            <Link href="/admin/sessions" className={styles.submitBtn} style={{ textDecoration: "none", display: "inline-block" }}>
               View sessions
-            </a>
+            </Link>
             <button
               onClick={() => { setStage("form"); setForm({ title:"", description:"", recordedAt:"", tags:"" }); if (fileRef.current) fileRef.current.value = ""; }}
               style={{ background:"transparent", border:"1px solid #1e1e1e", color:"var(--vault-muted)", borderRadius:"var(--radius-sm)", padding:"12px 20px", fontSize:14, cursor:"pointer" }}
@@ -200,7 +201,6 @@ export default function UploadPage() {
               {error && <p className={styles.error}>{error}</p>}
               <button
                 onClick={handleUpload}
-                disabled={stage === "uploading"}
                 className={styles.submitBtn}
               >
                 Upload session

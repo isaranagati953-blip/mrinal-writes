@@ -1,13 +1,16 @@
 import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
 import EditSessionForm from "./EditSessionForm";
-import styles from "../../admin.module.css";
+import styles from "../../../admin.module.css";
+
+export const dynamic = "force-dynamic";
 
 export default async function EditSessionPage({
   params,
-}: { params: { sessionId: string } }) {
+}: { params: Promise<{ sessionId: string }> }) {
+  const { sessionId } = await params;
   const session = await db.audioSession.findUnique({
-    where: { id: params.sessionId },
+    where: { id: sessionId },
     include: { transcription: true },
   });
 

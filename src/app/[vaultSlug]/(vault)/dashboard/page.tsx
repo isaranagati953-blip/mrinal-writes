@@ -4,13 +4,16 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import styles from "./dashboard.module.css";
 
+export const dynamic = "force-dynamic";
+
 export default async function DashboardPage({
   params,
 }: {
-  params: { vaultSlug: string };
+  params: Promise<{ vaultSlug: string }>;
 }) {
+  const { vaultSlug } = await params;
   const user = await getCurrentUser();
-  if (!user) redirect(`/${params.vaultSlug}/enter`);
+  if (!user) redirect(`/${vaultSlug}/enter`);
 
   // Fetch recent sessions + user's progress
   const [recentSessions, totalSessions, myNotes, inProgress] = await Promise.all([
@@ -37,7 +40,7 @@ export default async function DashboardPage({
     }),
   ]);
 
-  const slug = params.vaultSlug;
+  const slug = vaultSlug;
 
   return (
     <div className={styles.root}>

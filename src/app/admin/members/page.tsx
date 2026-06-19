@@ -2,6 +2,8 @@ import { db } from "@/lib/db";
 import MembersTable from "./MembersTable";
 import styles from "../admin.module.css";
 
+export const dynamic = "force-dynamic";
+
 export default async function MembersPage() {
   const members = await db.user.findMany({
     where: { role: "MEMBER" },

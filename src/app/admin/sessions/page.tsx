@@ -9,6 +9,8 @@ const MONTHS = [
   "July","August","September","October","November","December",
 ];
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminSessionsPage() {
   const sessions = await db.audioSession.findMany({
     orderBy: [{ recordedAt: "asc" }, { sortOrder: "asc" }],

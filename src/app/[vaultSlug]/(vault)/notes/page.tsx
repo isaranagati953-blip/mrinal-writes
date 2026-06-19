@@ -4,13 +4,16 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import styles from "./notes.module.css";
 
+export const dynamic = "force-dynamic";
+
 export default async function MyNotesPage({
   params,
 }: {
-  params: { vaultSlug: string };
+  params: Promise<{ vaultSlug: string }>;
 }) {
+  const { vaultSlug } = await params;
   const user = await getCurrentUser();
-  if (!user) redirect(`/${params.vaultSlug}/enter`);
+  if (!user) redirect(`/${vaultSlug}/enter`);
 
   const notes = await db.note.findMany({
     where: { userId: user.id },
@@ -20,7 +23,7 @@ export default async function MyNotesPage({
     },
   });
 
-  const slug = params.vaultSlug;
+  const slug = vaultSlug;
 
   // Group by session
   const grouped = notes.reduce<Record<string, typeof notes>>((acc, note) => {

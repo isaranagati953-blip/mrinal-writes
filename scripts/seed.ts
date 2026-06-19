@@ -1,7 +1,13 @@
+import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
+import dotenv from "dotenv";
+dotenv.config();
 
-const db = new PrismaClient();
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
+const db = new PrismaClient({
+  adapter: adapter,
+});
 
 async function main() {
   const email = process.env.ADMIN_EMAIL;
@@ -9,7 +15,9 @@ async function main() {
   const name = process.env.ADMIN_NAME ?? "Admin";
 
   if (!email || !password) {
-    console.error("Set ADMIN_EMAIL and ADMIN_PASSWORD in .env.local before seeding.");
+    console.error(
+      "Set ADMIN_EMAIL and ADMIN_PASSWORD in .env.local before seeding.",
+    );
     process.exit(1);
   }
 
@@ -20,10 +28,15 @@ async function main() {
   }
 
   const passwordHash = await bcrypt.hash(password, 12);
-  await db.user.create({ data: { email, name, passwordHash, role: "ADMIN", isActive: true } });
+  await db.user.create({
+    data: { email, name, passwordHash, role: "ADMIN", isActive: true },
+  });
   console.log(`Admin created: ${email}`);
 }
 
 main()
-  .catch((e) => { console.error(e); process.exit(1); })
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
   .finally(() => db.$disconnect());

@@ -18,8 +18,9 @@ const patchSchema = z.object({
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { sessionId: string } }
+  { params }: { params: Promise<{ sessionId: string }> }
 ) {
+  const { sessionId } = await params;
   const user = await getCurrentUser();
   if (!user || user.role !== "ADMIN") {
     return NextResponse.json({ ok: false, error: "Forbidden" }, { status: 403 });
@@ -29,7 +30,7 @@ export async function PATCH(
     const body = patchSchema.parse(await req.json());
 
     const session = await db.audioSession.findUnique({
-      where: { id: params.sessionId },
+      where: { id: sessionId },
     });
     if (!session) {
       return NextResponse.json({ ok: false, error: "Not found" }, { status: 404 });
@@ -37,7 +38,7 @@ export async function PATCH(
 
     // Update session fields
     await db.audioSession.update({
-      where: { id: params.sessionId },
+      where: { id: sessionId },
       data: {
         ...(body.title        !== undefined && { title: body.title }),
         ...(body.description  !== undefined && { description: body.description }),
@@ -52,12 +53,12 @@ export async function PATCH(
     // Handle transcription upsert / delete
     if (body.transcription !== undefined) {
       if (body.transcription === null || body.transcription === "") {
-        await db.transcription.deleteMany({ where: { audioSessionId: params.sessionId } });
+        await db.transcription.deleteMany({ where: { audioSessionId: sessionId } });
       } else {
         await db.transcription.upsert({
-          where: { audioSessionId: params.sessionId },
+          where: { audioSessionId: sessionId },
           create: {
-            audioSessionId: params.sessionId,
+            audioSessionId: sessionId,
             content: body.transcription,
             isVerified: body.transcriptVerified ?? false,
           },
@@ -71,7 +72,7 @@ export async function PATCH(
 
     await audit("SESSION_EDIT", {
       userId: user.id,
-      detail: { sessionId: params.sessionId },
+      detail: { sessionId },
     });
 
     return NextResponse.json({ ok: true });
@@ -86,15 +87,16 @@ export async function PATCH(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { sessionId: string } }
+  { params }: { params: Promise<{ sessionId: string }> }
 ) {
+  const { sessionId } = await params;
   const user = await getCurrentUser();
   if (!user || user.role !== "ADMIN") {
     return NextResponse.json({ ok: false, error: "Forbidden" }, { status: 403 });
   }
 
   const session = await db.audioSession.findUnique({
-    where: { id: params.sessionId },
+    where: { id: sessionId },
   });
   if (!session) {
     return NextResponse.json({ ok: false, error: "Not found" }, { status: 404 });
@@ -108,11 +110,11 @@ export async function DELETE(
     console.warn("R2 delete failed for key:", session.r2Key);
   }
 
-  await db.audioSession.delete({ where: { id: params.sessionId } });
+  await db.audioSession.delete({ where: { id: sessionId } });
 
   await audit("SESSION_DELETE", {
     userId: user.id,
-    detail: { sessionId: params.sessionId, title: session.title },
+    detail: { sessionId, title: session.title },
   });
 
   return NextResponse.json({ ok: true });

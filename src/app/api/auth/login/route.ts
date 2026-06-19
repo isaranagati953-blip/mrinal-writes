@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
     await db.user.update({ where: { id: user.id }, data: { lastLoginAt: new Date() } });
     await audit("LOGIN_SUCCESS", { userId: user.id, ip, userAgent: ua });
 
-    setSessionCookie(token);
+    await setSessionCookie(token);
 
     return NextResponse.json({ ok: true, data: { role: user.role } });
   } catch (err) {

@@ -2,6 +2,8 @@ import { db } from "@/lib/db";
 import InviteForm from "./InviteForm";
 import styles from "../admin.module.css";
 
+export const dynamic = "force-dynamic";
+
 export default async function InvitesPage() {
   const invites = await db.invite.findMany({
     orderBy: { createdAt: "desc" },

@@ -2,6 +2,8 @@ import { db } from "@/lib/db";
 import Link from "next/link";
 import styles from "./admin.module.css";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminPage() {
   const [totalSessions, published, unpublished, totalUsers, totalNotes, recentAudit] =
     await Promise.all([

@@ -3,7 +3,7 @@ import { db } from "@/lib/db";
 import { getSessionCookie, clearSessionCookie, verifyToken, audit } from "@/lib/auth";
 
 export async function POST(req: NextRequest) {
-  const token = getSessionCookie();
+  const token = await getSessionCookie();
 
   if (token) {
     const payload = await verifyToken(token);
@@ -14,6 +14,6 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  clearSessionCookie();
+  await clearSessionCookie();
   return NextResponse.json({ ok: true });
 }

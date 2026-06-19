@@ -3,10 +3,11 @@ import { db } from "@/lib/db";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { token: string } }
+  { params }: { params: Promise<{ token: string }> }
 ) {
+  const { token } = await params;
   const invite = await db.invite.findUnique({
-    where: { token: params.token },
+    where: { token },
   });
 
   if (!invite || invite.usedAt || invite.expiresAt < new Date()) {

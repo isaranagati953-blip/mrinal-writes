@@ -17,7 +17,7 @@ const nextConfig = {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-inline'",   // tighten after build
+              `script-src 'self' 'unsafe-inline' ${process.env.NODE_ENV === "development" ? "'unsafe-eval'" : ""}`,   // tighten after build
               "style-src 'self' 'unsafe-inline'",
               "media-src 'self' blob: https://*.r2.cloudflarestorage.com",
               "img-src 'self' data:",

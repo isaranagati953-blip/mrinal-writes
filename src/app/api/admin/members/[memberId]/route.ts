@@ -7,8 +7,9 @@ const schema = z.object({ isActive: z.boolean() });
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { memberId: string } }
+  { params }: { params: Promise<{ memberId: string }> }
 ) {
+  const { memberId } = await params;
   const admin = await getCurrentUser();
   if (!admin || admin.role !== "ADMIN") {
     return NextResponse.json({ ok: false, error: "Forbidden" }, { status: 403 });
@@ -17,24 +18,24 @@ export async function PATCH(
   try {
     const { isActive } = schema.parse(await req.json());
 
-    const member = await db.user.findUnique({ where: { id: params.memberId } });
+    const member = await db.user.findUnique({ where: { id: memberId } });
     if (!member || member.role === "ADMIN") {
       return NextResponse.json({ ok: false, error: "Not found" }, { status: 404 });
     }
 
     await db.user.update({
-      where: { id: params.memberId },
+      where: { id: memberId },
       data: { isActive },
     });
 
     // Revoke all active sessions immediately if deactivating
     if (!isActive) {
-      await db.session.deleteMany({ where: { userId: params.memberId } });
+      await db.session.deleteMany({ where: { userId: memberId } });
     }
 
     await audit(isActive ? "MEMBER_RESTORED" : "MEMBER_REVOKED", {
       userId: admin.id,
-      detail: { memberId: params.memberId, email: member.email },
+      detail: { memberId, email: member.email },
     });
 
     return NextResponse.json({ ok: true });

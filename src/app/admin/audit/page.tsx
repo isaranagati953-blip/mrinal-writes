@@ -1,15 +1,19 @@
 import { db } from "@/lib/db";
+import Link from "next/link";
 import styles from "../admin.module.css";
 
 const PAGE_SIZE = 50;
 
+export const dynamic = "force-dynamic";
+
 export default async function AuditPage({
   searchParams,
 }: {
-  searchParams: { page?: string; action?: string };
+  searchParams: Promise<{ page?: string; action?: string }>;
 }) {
-  const page = Math.max(1, parseInt(searchParams.page ?? "1"));
-  const action = searchParams.action ?? "";
+  const { page: pageParam, action: actionParam } = await searchParams;
+  const page = Math.max(1, parseInt(pageParam ?? "1"));
+  const action = actionParam ?? "";
 
   const [logs, total] = await Promise.all([
     db.auditLog.findMany({
@@ -47,7 +51,7 @@ export default async function AuditPage({
         <form method="GET" style={{ display:"flex", gap:8 }}>
           <input name="action" defaultValue={action} placeholder="Filter by action…" className={styles.input} style={{ maxWidth:260 }} />
           <button type="submit" className={styles.submitBtn} style={{ padding:"10px 16px" }}>Filter</button>
-          {action && <a href="/admin/audit" style={{ fontSize:13, color:"var(--vault-muted)", alignSelf:"center", padding:"4px" }}>Clear</a>}
+          {action && <Link href="/admin/audit" style={{ fontSize:13, color:"var(--vault-muted)", alignSelf:"center", padding:"4px" }}>Clear</Link>}
         </form>
 
         <div style={{ overflowX:"auto" }}>

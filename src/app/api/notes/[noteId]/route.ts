@@ -5,8 +5,9 @@ import { getCurrentUser, audit } from "@/lib/auth";
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { noteId: string } }
+  { params }: { params: Promise<{ noteId: string }> }
 ) {
+  const { noteId } = await params;
   const user = await getCurrentUser();
   if (!user) return NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401 });
 
@@ -16,17 +17,17 @@ export async function PATCH(
     const body = schema.parse(await req.json());
 
     // Ensure the note belongs to this user
-    const existing = await db.note.findUnique({ where: { id: params.noteId } });
+    const existing = await db.note.findUnique({ where: { id: noteId } });
     if (!existing || existing.userId !== user.id) {
       return NextResponse.json({ ok: false, error: "Not found" }, { status: 404 });
     }
 
     const updated = await db.note.update({
-      where: { id: params.noteId },
+      where: { id: noteId },
       data: { content: body.content },
     });
 
-    await audit("NOTE_EDIT", { userId: user.id, detail: { noteId: params.noteId } });
+    await audit("NOTE_EDIT", { userId: user.id, detail: { noteId } });
 
     return NextResponse.json({ ok: true, data: updated });
   } catch (err) {
@@ -39,18 +40,19 @@ export async function PATCH(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { noteId: string } }
+  { params }: { params: Promise<{ noteId: string }> }
 ) {
+  const { noteId } = await params;
   const user = await getCurrentUser();
   if (!user) return NextResponse.json({ ok: false, error: "Unauthorized" }, { status: 401 });
 
-  const existing = await db.note.findUnique({ where: { id: params.noteId } });
+  const existing = await db.note.findUnique({ where: { id: noteId } });
   if (!existing || existing.userId !== user.id) {
     return NextResponse.json({ ok: false, error: "Not found" }, { status: 404 });
   }
 
-  await db.note.delete({ where: { id: params.noteId } });
-  await audit("NOTE_DELETE", { userId: user.id, detail: { noteId: params.noteId } });
+  await db.note.delete({ where: { id: noteId } });
+  await audit("NOTE_DELETE", { userId: user.id, detail: { noteId } });
 
   return NextResponse.json({ ok: true });
 }
