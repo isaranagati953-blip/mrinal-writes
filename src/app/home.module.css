@@ -28,8 +28,8 @@
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #fde68a, #f59e0b);
-  color: #78350f;
+  background: linear-gradient(135deg, #ccfbf1, #0d9488);
+  color: #ffffff;
   font-size: 17px;
   font-weight: 700;
   display: flex;
@@ -37,7 +37,7 @@
   justify-content: center;
   flex-shrink: 0;
   letter-spacing: 0.03em;
-  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.25);
+  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.25);
 }
 
 .name {

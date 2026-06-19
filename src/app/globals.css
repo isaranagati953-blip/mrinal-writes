@@ -7,25 +7,25 @@
 :root {
   --font: var(--font-inter), "Inter", system-ui, -apple-system, sans-serif;
 
-  /* ── Public palette — warm, calm, airy ── */
-  --bg:       #f8f6f2;
+  /* ── Public palette — modern, airy, calm (Slate & Teal) ── */
+  --bg:       #f4f6f6;
   --bg-card:  #ffffff;
-  --fg:       #1c1917;
-  --muted:    #78716c;
-  --border:   #e7e5e0;
-  --accent:   #b45309;
-  --accent-light: #fef3c7;
+  --fg:       #1e293b;
+  --muted:    #64748b;
+  --border:   #e2e8f0;
+  --accent:   #0d9488;
+  --accent-light: #ccfbf1;
 
-  /* ── Vault palette — deep, focused, warm dark ── */
-  --vault-bg:         #0d0d0d;
-  --vault-surface:    #161616;
-  --vault-surface-2:  #1c1c1c;
-  --vault-border:     #252525;
-  --vault-fg:         #ede8e0;
-  --vault-muted:      #7a746e;
-  --vault-accent:     #d4a84b;
-  --vault-accent-dim: #a07c2e;
-  --vault-accent-bg:  rgba(212, 168, 75, 0.08);
+  /* ── Vault palette — deep, calming midnight slate (No Black & Yellow!) ── */
+  --vault-bg:         #0a0f1d;
+  --vault-surface:    #111827;
+  --vault-surface-2:  #1f2937;
+  --vault-border:     #1e293b;
+  --vault-fg:         #f1f5f9;
+  --vault-muted:      #94a3b8;
+  --vault-accent:     #2dd4bf;
+  --vault-accent-dim: #0d9488;
+  --vault-accent-bg:  rgba(45, 212, 191, 0.08);
 
   --radius:    10px;
   --radius-sm: 6px;

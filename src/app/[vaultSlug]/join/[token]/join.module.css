@@ -13,7 +13,7 @@
   content: "";
   position: fixed;
   inset: 0;
-  background: radial-gradient(ellipse 60% 50% at 50% 40%, rgba(212,168,75,0.05) 0%, transparent 70%);
+  background: radial-gradient(ellipse 60% 50% at 50% 40%, rgba(45,212,191,0.05) 0%, transparent 70%);
   pointer-events: none;
 }
 
@@ -113,7 +113,7 @@
 
 .input:focus {
   border-color: var(--vault-accent);
-  box-shadow: 0 0 0 3px rgba(212, 168, 75, 0.12);
+  box-shadow: 0 0 0 3px rgba(45, 212, 191, 0.12);
 }
 
 .input::placeholder {
@@ -144,8 +144,8 @@
 }
 
 .btn:hover:not(:disabled) {
-  background: #e0b050;
-  box-shadow: 0 4px 20px rgba(212, 168, 75, 0.3);
+  background: #14b8a6;
+  box-shadow: 0 4px 20px rgba(45, 212, 191, 0.3);
   transform: translateY(-1px);
 }
 
