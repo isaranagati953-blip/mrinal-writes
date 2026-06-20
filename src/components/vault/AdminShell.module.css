@@ -1,7 +1,7 @@
 .root {
   display: flex;
   min-height: 100vh;
-  background: #090909;
+  background: var(--vault-bg);
   color: var(--vault-fg);
 }
 
@@ -79,7 +79,7 @@
 }
 
 .navItem:hover {
-  background: rgba(255,255,255,0.04);
+  background: rgba(0,0,0,0.04);
   color: var(--vault-fg);
 }
 
@@ -109,7 +109,7 @@
   gap: 10px;
   padding: 10px 14px;
   border-radius: var(--radius-sm);
-  background: rgba(255,255,255,0.025);
+  background: rgba(0,0,0,0.025);
 }
 
 .avatar {
@@ -226,7 +226,7 @@
 }
 
 .mobileNavItem:hover {
-  background: rgba(255,255,255,0.04);
+  background: rgba(0,0,0,0.04);
   color: var(--vault-fg);
 }
 

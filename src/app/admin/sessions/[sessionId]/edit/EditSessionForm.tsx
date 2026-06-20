@@ -158,7 +158,7 @@ export default function EditSessionForm({ session }: Props) {
         </button>
         <button
           onClick={() => router.push("/admin/sessions")}
-          style={{ background: "transparent", border: "1px solid #1e1e1e", color: "var(--vault-muted)", borderRadius: "var(--radius-sm)", padding: "12px 20px", fontSize: 14, cursor: "pointer" }}
+          style={{ background: "transparent", border: "1px solid var(--vault-border)", color: "var(--vault-muted)", borderRadius: "var(--radius-sm)", padding: "12px 20px", fontSize: 14, cursor: "pointer" }}
         >
           ← Back
         </button>

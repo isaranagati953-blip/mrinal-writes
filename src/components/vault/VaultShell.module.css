@@ -67,7 +67,7 @@
 }
 
 .navItem:hover {
-  background: rgba(255,255,255,0.04);
+  background: rgba(0,0,0,0.04);
   color: var(--vault-fg);
 }
 
@@ -98,7 +98,7 @@
   gap: 11px;
   padding: 11px 14px;
   border-radius: var(--radius-sm);
-  background: rgba(255,255,255,0.025);
+  background: rgba(0,0,0,0.025);
 }
 
 .userAvatar {
@@ -214,7 +214,7 @@
 }
 
 .mobileNavItem:hover, .mobileNavItem:active {
-  background: rgba(255,255,255,0.04);
+  background: rgba(0,0,0,0.04);
   color: var(--vault-fg);
 }
 

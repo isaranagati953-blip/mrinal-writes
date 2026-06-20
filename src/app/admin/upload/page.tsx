@@ -98,7 +98,7 @@ export default function UploadPage() {
             </Link>
             <button
               onClick={() => { setStage("form"); setForm({ title:"", description:"", recordedAt:"", tags:"" }); if (fileRef.current) fileRef.current.value = ""; }}
-              style={{ background:"transparent", border:"1px solid #1e1e1e", color:"var(--vault-muted)", borderRadius:"var(--radius-sm)", padding:"12px 20px", fontSize:14, cursor:"pointer" }}
+              style={{ background:"transparent", border:"1px solid var(--vault-border)", color:"var(--vault-muted)", borderRadius:"var(--radius-sm)", padding:"12px 20px", fontSize:14, cursor:"pointer" }}
             >
               Upload another
             </button>
@@ -179,7 +179,7 @@ export default function UploadPage() {
           {/* Progress bar */}
           {stage === "uploading" && (
             <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-              <div style={{ height: 4, background: "#1e1e1e", borderRadius: 2, overflow: "hidden" }}>
+              <div style={{ height: 4, background: "var(--vault-border)", borderRadius: 2, overflow: "hidden" }}>
                 <div
                   style={{
                     height: "100%",

@@ -75,7 +75,7 @@
 .row:hover { border-color: rgba(212,168,75,0.3); transform: translateX(2px); }
 
 .published { border-left: 3px solid var(--vault-accent) !important; }
-.draft     { border-left: 3px solid #2a2a2a !important; }
+.draft     { border-left: 3px solid #cbd5e1 !important; }
 
 .dot {
   width: 7px;
@@ -84,7 +84,7 @@
   flex-shrink: 0;
 }
 .published .dot { background: var(--vault-accent); }
-.draft .dot     { background: #333; }
+.draft .dot     { background: #cbd5e1; }
 
 .info {
   flex: 1;
@@ -110,13 +110,13 @@
   font-weight: 500;
   padding: 2px 8px;
   border-radius: 100px;
-  background: rgba(255,255,255,0.04);
+  background: rgba(0,0,0,0.04);
   color: var(--vault-muted);
 }
 
 .badgeGreen {
-  background: rgba(110,231,183,0.08);
-  color: #6ee7b7;
+  background: rgba(16,185,129,0.1);
+  color: #059669;
 }
 
 .badgeYellow {

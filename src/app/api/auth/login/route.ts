@@ -3,6 +3,7 @@ import { z } from "zod";
 import { db } from "@/lib/db";
 import { verifyPassword, createToken, setSessionCookie, audit } from "@/lib/auth";
 import { v4 as uuidv4 } from "uuid";
+import { checkRateLimit } from "@/lib/rateLimit";
 
 const schema = z.object({
   email: z.string().email(),
@@ -10,10 +11,19 @@ const schema = z.object({
 });
 
 export async function POST(req: NextRequest) {
-  const ip = req.headers.get("x-forwarded-for") ?? "unknown";
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown";
   const ua = req.headers.get("user-agent") ?? "";
 
   try {
+    // Simple in-memory rate limit — 5 attempts per IP per 15 minutes
+    const { limited, remaining } = checkRateLimit(ip);
+    if (limited) {
+      return NextResponse.json(
+        { ok: false, error: "Too many attempts. Try again later." },
+        { status: 429 }
+      );
+    }
+
     const body = schema.parse(await req.json());
 
     const user = await db.user.findUnique({ where: { email: body.email.toLowerCase() } });

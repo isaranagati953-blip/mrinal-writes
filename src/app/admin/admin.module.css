@@ -135,11 +135,11 @@
 }
 
 .auditRow:last-child { border-bottom: none; }
-.auditRow:hover { background: rgba(255,255,255,0.02); }
+.auditRow:hover { background: rgba(0,0,0,0.02); }
 
 .auditAction { color: var(--vault-fg); font-weight: 500; }
 .auditWho    { color: var(--vault-muted); }
-.auditTime   { color: #3a3a3a; font-size: 11px; white-space: nowrap; }
+.auditTime   { color: #666; font-size: 11px; white-space: nowrap; }
 
 /* ─── Forms ──────────────────────────────────── */
 .form { display: flex; flex-direction: column; gap: 22px; }
@@ -171,7 +171,7 @@
   box-shadow: 0 0 0 3px rgba(212, 168, 75, 0.1);
 }
 
-.input::placeholder, .textarea::placeholder { color: #2a2a2a; }
+.input::placeholder, .textarea::placeholder { color: #999; }
 
 .textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
 .select option { background: var(--vault-surface); }
@@ -244,10 +244,10 @@
 
 .table td {
   padding: 13px 16px;
-  border-bottom: 1px solid rgba(37,37,37,0.6);
+  border-bottom: 1px solid rgba(0,0,0,0.1);
   color: var(--vault-fg);
   vertical-align: middle;
 }
 
 .table tr:last-child td { border-bottom: none; }
-.table tr:hover td { background: rgba(255,255,255,0.015); }
+.table tr:hover td { background: rgba(0,0,0,0.02); }
