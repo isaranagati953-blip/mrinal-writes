@@ -8,16 +8,26 @@ const inter = Inter({
   display: "swap",
 });
 
+import PWARegistration from "@/components/PWARegistration";
+
 export const metadata: Metadata = {
   title: "Home",
   description: "",
+  manifest: "/manifest.json",
   robots: { index: false, follow: false },
+};
+
+export const viewport = {
+  themeColor: "#ffffff",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={inter.variable}>
-      <body>{children}</body>
+      <body>
+        <PWARegistration />
+        {children}
+      </body>
     </html>
   );
 }
