@@ -1,0 +1,63 @@
+.headerGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.titleSkel {
+    height: 28px;
+    width: 260px;
+    border-radius: 6px;
+}
+
+.dateSkel {
+    height: 16px;
+    width: 160px;
+    border-radius: 4px;
+}
+
+.statCard {
+    gap: 8px;
+}
+
+.statNum {
+    height: 32px;
+    width: 48px;
+    border-radius: 6px;
+}
+
+.statLabel {
+    height: 14px;
+    width: 64px;
+    border-radius: 4px;
+}
+
+.sectionTitle {
+    height: 14px;
+    width: 120px;
+    border-radius: 4px;
+    margin-bottom: 4px;
+}
+
+.card {
+    gap: 8px;
+    pointer-events: none;
+}
+
+.cardDate {
+    height: 12px;
+    width: 80px;
+    border-radius: 3px;
+}
+
+.cardTitle {
+    height: 18px;
+    width: 75%;
+    border-radius: 4px;
+}
+
+.cardDesc {
+    height: 14px;
+    width: 55%;
+    border-radius: 4px;
+}

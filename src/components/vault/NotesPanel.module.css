@@ -26,7 +26,7 @@
 }
 
 .addArea:focus-within {
-  border-color: rgba(212,168,75,0.3);
+  border-color: rgba(212, 168, 75, 0.3);
 }
 
 .textarea {
@@ -42,7 +42,9 @@
   min-height: 78px;
 }
 
-.textarea::placeholder { color: #303030; }
+.textarea::placeholder {
+  color: #303030;
+}
 
 .addFooter {
   display: flex;
@@ -50,7 +52,10 @@
   justify-content: space-between;
 }
 
-.hint { font-size: 12px; color: var(--vault-muted); }
+.hint {
+  font-size: 12px;
+  color: var(--vault-muted);
+}
 
 .saveBtn {
   background: var(--vault-accent);
@@ -68,14 +73,17 @@
   transform: translateY(-1px);
 }
 
-.saveBtn:disabled { opacity: 0.4; cursor: not-allowed; }
+.saveBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
 
 .error {
   font-size: 12px;
   color: #f87171;
   padding: 8px 12px;
-  background: rgba(248,113,113,0.07);
-  border: 1px solid rgba(248,113,113,0.2);
+  background: rgba(248, 113, 113, 0.07);
+  border: 1px solid rgba(248, 113, 113, 0.2);
   border-radius: var(--radius-sm);
 }
 
@@ -98,7 +106,9 @@
   transition: border-color var(--transition);
 }
 
-.noteCard:hover { border-color: rgba(212,168,75,0.2); }
+.noteCard:hover {
+  border-color: rgba(212, 168, 75, 0.2);
+}
 
 .noteContent {
   font-size: 14px;
@@ -114,9 +124,16 @@
   gap: 8px;
 }
 
-.noteDate { font-size: 12px; color: var(--vault-muted); font-weight: 500; }
+.noteDate {
+  font-size: 12px;
+  color: var(--vault-muted);
+  font-weight: 500;
+}
 
-.noteActions { display: flex; gap: 8px; }
+.noteActions {
+  display: flex;
+  gap: 8px;
+}
 
 .actionBtn {
   font-size: 12px;
@@ -127,8 +144,13 @@
   transition: color var(--transition);
 }
 
-.actionBtn:hover { color: var(--vault-fg); }
-.deleteBtn:hover { color: #f87171 !important; }
+.actionBtn:hover {
+  color: var(--vault-fg);
+}
+
+.deleteBtn:hover {
+  color: #f87171 !important;
+}
 
 /* Edit area */
 .editArea {
@@ -153,7 +175,15 @@
   transition: border-color var(--transition), color var(--transition);
 }
 
-.cancelBtn:hover { border-color: var(--vault-fg); color: var(--vault-fg); }
+.cancelBtn:hover {
+  border-color: var(--vault-fg);
+  color: var(--vault-fg);
+}
+
+.noteOptimistic {
+  opacity: 0.6;
+  pointer-events: none;
+}
 
 .empty {
   font-size: 14px;

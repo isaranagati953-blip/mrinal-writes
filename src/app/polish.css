@@ -1,0 +1,223 @@
+/* ─────────────────────────────────────────────────────────
+   GLOBAL POLISH — loading states, transitions, feedback
+   Add @import of this file to globals.css
+───────────────────────────────────────────────────────── */
+
+/* ── Page transition wrapper ── */
+.page-enter {
+    opacity: 0;
+    transform: translateY(6px);
+}
+
+.page-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+/* ── Skeleton shimmer ── */
+@keyframes shimmer {
+    0% {
+        background-position: -600px 0;
+    }
+
+    100% {
+        background-position: 600px 0;
+    }
+}
+
+.skeleton {
+    border-radius: 6px;
+    background: linear-gradient(90deg,
+            #1a1a1a 25%,
+            #242424 37%,
+            #1a1a1a 63%);
+    background-size: 1200px 100%;
+    animation: shimmer 1.4s ease infinite;
+    display: block;
+}
+
+/* Light variant for public pages */
+.skeleton-light {
+    border-radius: 6px;
+    background: linear-gradient(90deg,
+            #e8e8e8 25%,
+            #f0f0f0 37%,
+            #e8e8e8 63%);
+    background-size: 1200px 100%;
+    animation: shimmer 1.4s ease infinite;
+    display: block;
+}
+
+/* ── Button press feedback ── */
+.btn-press {
+    transition: transform 0.1s ease, opacity 0.1s ease;
+}
+
+.btn-press:active {
+    transform: scale(0.96);
+    opacity: 0.85;
+}
+
+/* ── Link tap feedback (mobile) ── */
+.tap-target {
+    -webkit-tap-highlight-color: rgba(201, 168, 76, 0.15);
+    transition: background 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+}
+
+.tap-target:active {
+    opacity: 0.75;
+}
+
+/* ── Spinner ── */
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(201, 168, 76, 0.25);
+    border-top-color: var(--vault-accent);
+    border-radius: 50%;
+    animation: spin 0.65s linear infinite;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+.spinner-sm {
+    width: 14px;
+    height: 14px;
+    border-width: 1.5px;
+}
+
+/* ── Fade in when content arrives ── */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-up {
+    animation: fadeUp 0.25s ease both;
+}
+
+/* Stagger children */
+.fade-up-children>* {
+    opacity: 0;
+    animation: fadeUp 0.25s ease forwards;
+}
+
+.fade-up-children>*:nth-child(1) {
+    animation-delay: 0.04s;
+}
+
+.fade-up-children>*:nth-child(2) {
+    animation-delay: 0.08s;
+}
+
+.fade-up-children>*:nth-child(3) {
+    animation-delay: 0.12s;
+}
+
+.fade-up-children>*:nth-child(4) {
+    animation-delay: 0.16s;
+}
+
+.fade-up-children>*:nth-child(5) {
+    animation-delay: 0.20s;
+}
+
+.fade-up-children>*:nth-child(6) {
+    animation-delay: 0.24s;
+}
+
+/* ── Toast notification ── */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+}
+
+.toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1e1e1e;
+    border: 1px solid var(--vault-border);
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 13px;
+    color: var(--vault-fg);
+    font-family: var(--font);
+    z-index: 9999;
+    animation: slideUp 0.2s ease both;
+    white-space: nowrap;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+}
+
+.toast-success {
+    border-color: rgba(52, 211, 153, 0.4);
+    color: #34d399;
+}
+
+.toast-error {
+    border-color: rgba(224, 92, 92, 0.4);
+    color: #e05c5c;
+}
+
+.toast-exit {
+    animation: slideDown 0.2s ease forwards;
+}
+
+/* ── Reduce motion for accessibility ── */
+@media (prefers-reduced-motion: reduce) {
+
+    .skeleton,
+    .skeleton-light {
+        animation: none;
+        background: #1e1e1e;
+    }
+
+    .fade-up,
+    .fade-up-children>* {
+        animation: none;
+        opacity: 1;
+    }
+
+    .spinner {
+        animation-duration: 1.5s;
+    }
+
+    .btn-press:active {
+        transform: none;
+    }
+}

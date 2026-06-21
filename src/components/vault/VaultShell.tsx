@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import styles from "./VaultShell.module.css";
+import PageTransition from "./PageTransition";
 
 type Props = {
   children: React.ReactNode;
@@ -28,7 +29,10 @@ export default function VaultShell({ children, user }: Props) {
     router.push(`/${slug}/enter`);
   }
 
+  const [activeNav, setActiveNav] = useState<string | null>(null);
+
   function navTo(path: string) {
+    setActiveNav(path);
     router.push(`/${slug}/${path}`);
     setMenuOpen(false);
   }
@@ -42,16 +46,19 @@ export default function VaultShell({ children, user }: Props) {
           <div className={styles.logoMark}>॥</div>
 
           <nav className={styles.nav}>
-            {NAV.map((item) => (
-              <button
-                key={item.path}
-                onClick={() => navTo(item.path)}
-                className={`${styles.navItem} ${pathname.includes(item.path) ? styles.navActive : ""}`}
-              >
-                <span className={styles.navIcon}>{item.icon}</span>
-                <span>{item.label}</span>
-              </button>
-            ))}
+            {NAV.map((item) => {
+              const isActive = pathname.includes(item.path) || activeNav === item.path;
+              return (
+                <button
+                  key={item.path}
+                  onClick={() => navTo(item.path)}
+                  className={`${styles.navItem} ${isActive ? styles.navActive : ""}`}
+                >
+                  <span className={styles.navIcon}>{item.icon}</span>
+                  <span>{item.label}</span>
+                </button>
+              );
+            })}
             {user.role === "ADMIN" && (
               <button
                 onClick={() => router.push("/admin")}
@@ -129,7 +136,9 @@ export default function VaultShell({ children, user }: Props) {
 
       {/* ── Main content ── */}
       <main className={styles.main}>
-        {children}
+        <PageTransition>
+          {children}
+        </PageTransition>
       </main>
 
     </div>

@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { useToast, ToastContainer } from "@/lib/useToast";
 import styles from "./NotesPanel.module.css";
 
 type Note = {
@@ -20,27 +21,48 @@ export default function NotesPanel({ sessionId, initialNotes }: Props) {
   const [saving, setSaving] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editContent, setEditContent] = useState("");
-  const [error, setError] = useState("");
+  const { toasts, show } = useToast();
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   async function handleAdd() {
     if (!draft.trim()) return;
     setSaving(true);
-    setError("");
+
+    // Optimistic add
+    const tempId = `temp-${Date.now()}`;
+    const optimistic: Note = {
+      id: tempId,
+      content: draft.trim(),
+      timestampSecs: null,
+      createdAt: new Date().toISOString(),
+    };
+    setNotes((prev) => [...prev, optimistic]);
+    const savedDraft = draft;
+    setDraft("");
+
     try {
       const res = await fetch("/api/notes", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sessionId, content: draft.trim() }),
+        body: JSON.stringify({ sessionId, content: savedDraft.trim() }),
       });
       const data = await res.json();
       if (data.ok) {
-        setNotes((prev) => [...prev, data.data]);
-        setDraft("");
+        // Replace temp with real
+        setNotes((prev) =>
+          prev.map((n) => (n.id === tempId ? { ...data.data, createdAt: data.data.createdAt } : n))
+        );
+        show("Note saved", "success");
       } else {
-        setError(data.error ?? "Could not save note.");
+        // Roll back
+        setNotes((prev) => prev.filter((n) => n.id !== tempId));
+        setDraft(savedDraft);
+        show(data.error ?? "Could not save note", "error");
       }
     } catch {
-      setError("Network error.");
+      setNotes((prev) => prev.filter((n) => n.id !== tempId));
+      setDraft(savedDraft);
+      show("Network error", "error");
     } finally {
       setSaving(false);
     }
@@ -48,7 +70,14 @@ export default function NotesPanel({ sessionId, initialNotes }: Props) {
 
   async function handleEdit(id: string) {
     if (!editContent.trim()) return;
-    setSaving(true);
+    const original = notes.find((n) => n.id === id)?.content ?? "";
+
+    // Optimistic update
+    setNotes((prev) =>
+      prev.map((n) => (n.id === id ? { ...n, content: editContent.trim() } : n))
+    );
+    setEditingId(null);
+
     try {
       const res = await fetch(`/api/notes/${id}`, {
         method: "PATCH",
@@ -57,30 +86,46 @@ export default function NotesPanel({ sessionId, initialNotes }: Props) {
       });
       const data = await res.json();
       if (data.ok) {
-        setNotes((prev) =>
-          prev.map((n) => (n.id === id ? { ...n, content: editContent.trim() } : n))
-        );
-        setEditingId(null);
+        show("Note updated", "success");
+      } else {
+        setNotes((prev) => prev.map((n) => (n.id === id ? { ...n, content: original } : n)));
+        show("Could not update note", "error");
       }
-    } catch { /* silent */ }
-    finally { setSaving(false); }
+    } catch {
+      setNotes((prev) => prev.map((n) => (n.id === id ? { ...n, content: original } : n)));
+      show("Network error", "error");
+    }
   }
 
   async function handleDelete(id: string) {
     if (!confirm("Delete this note?")) return;
+
+    // Optimistic remove
+    const removed = notes.find((n) => n.id === id);
+    setNotes((prev) => prev.filter((n) => n.id !== id));
+    show("Note deleted", "success");
+
     try {
-      await fetch(`/api/notes/${id}`, { method: "DELETE" });
-      setNotes((prev) => prev.filter((n) => n.id !== id));
-    } catch { /* silent */ }
+      const res = await fetch(`/api/notes/${id}`, { method: "DELETE" });
+      if (!res.ok && removed) {
+        setNotes((prev) => [...prev, removed]);
+        show("Could not delete note", "error");
+      }
+    } catch {
+      if (removed) setNotes((prev) => [...prev, removed]);
+      show("Network error", "error");
+    }
   }
 
   return (
     <section className={styles.root}>
+      <ToastContainer toasts={toasts} />
       <h2 className={styles.title}>My Notes</h2>
 
       {/* Add note */}
       <div className={styles.addArea}>
         <textarea
+          ref={textareaRef}
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
           placeholder="Write a note about this session…"
@@ -90,24 +135,27 @@ export default function NotesPanel({ sessionId, initialNotes }: Props) {
             if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) handleAdd();
           }}
         />
-        {error && <p className={styles.error}>{error}</p>}
         <div className={styles.addFooter}>
           <span className={styles.hint}>⌘ + Enter to save</span>
           <button
             onClick={handleAdd}
             disabled={saving || !draft.trim()}
-            className={styles.saveBtn}
+            className={`${styles.saveBtn} btn-press`}
           >
-            {saving ? "Saving…" : "Save note"}
+            {saving
+              ? <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                <span className="spinner spinner-sm" />Saving…
+              </span>
+              : "Save note"}
           </button>
         </div>
       </div>
 
       {/* Notes list */}
       {notes.length > 0 ? (
-        <ul className={styles.list}>
+        <ul className={`${styles.list} fade-up-children`}>
           {notes.map((note) => (
-            <li key={note.id} className={styles.noteCard}>
+            <li key={note.id} className={`${styles.noteCard} ${note.id.startsWith("temp-") ? styles.noteOptimistic : ""}`}>
               {editingId === note.id ? (
                 <div className={styles.editArea}>
                   <textarea
@@ -118,19 +166,8 @@ export default function NotesPanel({ sessionId, initialNotes }: Props) {
                     autoFocus
                   />
                   <div className={styles.editActions}>
-                    <button
-                      onClick={() => setEditingId(null)}
-                      className={styles.cancelBtn}
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      onClick={() => handleEdit(note.id)}
-                      disabled={saving}
-                      className={styles.saveBtn}
-                    >
-                      {saving ? "Saving…" : "Save"}
-                    </button>
+                    <button onClick={() => setEditingId(null)} className={styles.cancelBtn}>Cancel</button>
+                    <button onClick={() => handleEdit(note.id)} className={`${styles.saveBtn} btn-press`}>Save</button>
                   </div>
                 </div>
               ) : (
@@ -142,23 +179,12 @@ export default function NotesPanel({ sessionId, initialNotes }: Props) {
                         day: "numeric", month: "short", year: "numeric",
                       })}
                     </span>
-                    <div className={styles.noteActions}>
-                      <button
-                        onClick={() => {
-                          setEditingId(note.id);
-                          setEditContent(note.content);
-                        }}
-                        className={styles.actionBtn}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => handleDelete(note.id)}
-                        className={`${styles.actionBtn} ${styles.deleteBtn}`}
-                      >
-                        Delete
-                      </button>
-                    </div>
+                    {!note.id.startsWith("temp-") && (
+                      <div className={styles.noteActions}>
+                        <button onClick={() => { setEditingId(note.id); setEditContent(note.content); }} className={styles.actionBtn}>Edit</button>
+                        <button onClick={() => handleDelete(note.id)} className={`${styles.actionBtn} ${styles.deleteBtn}`}>Delete</button>
+                      </div>
+                    )}
                   </div>
                 </>
               )}
