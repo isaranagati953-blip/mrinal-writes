@@ -34,7 +34,14 @@ export default async function DashboardPage({
         completedAt: null,
         positionSecs: { gt: 0 },
       },
-      include: { audioSession: true },
+      include: {
+        audioSession: {
+          select: {
+            title: true,
+            durationSecs: true,
+          }
+        }
+      },
       orderBy: { updatedAt: "desc" },
       take: 3,
     }),
@@ -91,7 +98,21 @@ export default async function DashboardPage({
                     <span className={styles.continueTitle}>{p.audioSession.title}</span>
                     <span className={styles.continuePos}>
                       {formatDuration(p.positionSecs)} in
+                      {p.audioSession.durationSecs
+                        ? ` · ${Math.round((p.positionSecs / p.audioSession.durationSecs) * 100)}% done`
+                        : ""}
                     </span>
+                    {/* Progress bar */}
+                    {p.audioSession.durationSecs && (
+                      <div style={{ marginTop: 6, height: 3, background: "var(--vault-border)", borderRadius: 2 }}>
+                        <div style={{
+                          height: "100%",
+                          width: `${Math.min(100, Math.round((p.positionSecs / p.audioSession.durationSecs) * 100))}%`,
+                          background: "var(--vault-accent)",
+                          borderRadius: 2,
+                        }} />
+                      </div>
+                    )}
                   </div>
                 </Link>
               ))}

@@ -5,6 +5,7 @@ import { getSignedStreamUrl } from "@/lib/r2";
 import AudioPlayer from "@/components/vault/AudioPlayer";
 import NotesPanel from "@/components/vault/NotesPanel";
 import styles from "./session.module.css";
+import TranscriptSearch from "../../TranscriptSearch";
 
 export const dynamic = "force-dynamic";
 
@@ -87,6 +88,17 @@ export default async function SessionPage({
           {session.transcription && (
             <section className={styles.transcriptSection}>
               <h2 className={styles.panelTitle}>Transcript</h2>
+              {/* Search — client component */}
+              <TranscriptSearch
+                sessionId={session.id}
+                vaultSlug={vaultSlug}
+                onJumpTo={(index) => {
+                  // scroll to paragraph by data-index
+                  document
+                    .querySelector(`[data-para="${index}"]`)
+                    ?.scrollIntoView({ behavior: "smooth", block: "center" });
+                }}
+              />
               <div className={styles.transcriptBody}>
                 {session.transcription.content
                   .split("\n")

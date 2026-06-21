@@ -31,6 +31,48 @@ export default function AudioPlayer({
     audio.currentTime = resumeAt;
   }, [resumeAt]);
 
+  // Keyboard shortcuts
+  useEffect(() => {
+    function handleKey(e: KeyboardEvent) {
+      // Don't fire if user is typing in an input/textarea
+      const tag = (e.target as HTMLElement).tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA") return;
+
+      switch (e.key) {
+        case " ":
+        case "k":
+          e.preventDefault();
+          togglePlay();
+          break;
+        case "ArrowLeft":
+        case "j":
+          e.preventDefault();
+          skip(-10);
+          break;
+        case "ArrowRight":
+        case "l":
+          e.preventDefault();
+          skip(10);
+          break;
+        case "ArrowUp":
+          e.preventDefault();
+          skip(30);
+          break;
+        case "ArrowDown":
+          e.preventDefault();
+          skip(-30);
+          break;
+        case "m":
+          e.preventDefault();
+          toggleMute();
+          break;
+      }
+    }
+
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [playing, muted, duration]); // deps needed so togglePlay/skip/toggleMute see fresh state
+
   // Save progress to server (debounced — every 10s of playback)
   const saveProgress = useCallback(async (positionSecs: number) => {
     try {
@@ -71,7 +113,7 @@ export default function AudioPlayer({
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ sessionId, positionSecs: Math.floor(duration), completed: true }),
-    }).catch(() => {});
+    }).catch(() => { });
   }
 
   function togglePlay() {
@@ -137,7 +179,7 @@ export default function AudioPlayer({
         onWaiting={() => setLoading(true)}
         onCanPlay={() => setLoading(false)}
         preload="metadata"
-        // No `controls` prop — we render our own UI
+      // No `controls` prop — we render our own UI
       />
 
       {/* Progress bar */}

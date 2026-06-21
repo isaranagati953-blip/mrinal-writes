@@ -97,8 +97,8 @@ export default function UploadPage() {
               View sessions
             </Link>
             <button
-              onClick={() => { setStage("form"); setForm({ title:"", description:"", recordedAt:"", tags:"" }); if (fileRef.current) fileRef.current.value = ""; }}
-              style={{ background:"transparent", border:"1px solid var(--vault-border)", color:"var(--vault-muted)", borderRadius:"var(--radius-sm)", padding:"12px 20px", fontSize:14, cursor:"pointer" }}
+              onClick={() => { setStage("form"); setForm({ title: "", description: "", recordedAt: "", tags: "" }); if (fileRef.current) fileRef.current.value = ""; }}
+              style={{ background: "transparent", border: "1px solid var(--vault-border)", color: "var(--vault-muted)", borderRadius: "var(--radius-sm)", padding: "12px 20px", fontSize: 14, cursor: "pointer" }}
             >
               Upload another
             </button>
@@ -106,6 +106,10 @@ export default function UploadPage() {
         </div>
       </div>
     );
+  }
+
+  function filenameToTitle(filename: string): string {
+    return filename.replace(/\.[^/.]+$/, "").trim();
   }
 
   return (
@@ -122,6 +126,10 @@ export default function UploadPage() {
               accept="audio/*,.mp3,.m4a,.wav,.ogg,.aac"
               className={styles.input}
               disabled={stage === "uploading"}
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) set("title", filenameToTitle(file.name));
+              }}
             />
             <span className={styles.hint}>
               MP3, M4A, WAV, AAC supported. Large files upload directly to secure storage.
